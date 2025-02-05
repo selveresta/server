@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from './modules/user/user.module';
-import { StreamModule } from './modules/stream/stream.module';
-import { DatabaseModule } from './src/modules/database/database.module';
-import { DatabaseModule } from './modules/database/database.module';
+import { ConfigModule } from '@nestjs/config';
+import { Config } from '@C/configuration';
 
 @Module({
-	imports: [UserModule, StreamModule, DatabaseModule],
+	imports: [
+		ConfigModule.forRoot({
+			load: [Config],
+		}),
+	],
 	controllers: [],
 	providers: [],
 })
