@@ -3,6 +3,8 @@ import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
 
+import { HttpExceptionFilter } from '@M/exception/httpExceptionFilter.exception';
+
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
 
@@ -13,6 +15,8 @@ async function bootstrap() {
 			transform: true,
 		}),
 	);
+
+	app.useGlobalFilters(new HttpExceptionFilter());
 
 	app.enableCors({
 		origin: ['http://localhost:3001'],

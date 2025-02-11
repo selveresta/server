@@ -11,6 +11,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.model';
 
+import { UserNotFoundException } from '@M/exception/custom/user-not-found.exception';
 import { IUser } from '@T/user/user';
 
 @Injectable()
@@ -58,7 +59,7 @@ export class UserService {
 	}
 
 	async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-		const user = await this.findOne(id);
+		const user = await this.findBy('id', id);
 
 		if (updateUserDto.email && updateUserDto.email !== user.email) {
 			const emailExists = await this.userModel.findOne({
@@ -94,25 +95,20 @@ export class UserService {
 	}
 
 	async findBy(
-		key: keyof Pick<IUser, 'username' | 'email'>,
+		key: keyof Pick<IUser, 'username' | 'email' | 'id'>,
 		value: string,
 	): Promise<User> {
 		const user = await this.userModel.findOne<User>({
 			where: { [key]: value },
 		});
 		if (!user) {
-			if (!user) {
-				throw new NotFoundException({
-					code: 'USER_NOT_FOUND',
-					message: `User with ${key} "${value}" not found`,
-				});
-			}
+			throw new UserNotFoundException(`${key} "${value}"`);
 		}
 		return user;
 	}
 
 	async remove(id: string): Promise<void> {
-		const user = await this.findOne(id);
+		const user = await this.findBy('id', id);
 
 		await user.destroy();
 	}
