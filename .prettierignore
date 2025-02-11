@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.idea/
+.yarn/
+symlinks/
+*.iml
+*.lock
+*.log
+*.png
+.eslintignore
+.gitattributes
+.gitignore
+.gitmodules
+.prettierignore
+.npmrc
+.yarnrc
+*.env

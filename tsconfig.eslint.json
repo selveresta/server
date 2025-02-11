@@ -1,0 +1,7 @@
+{
+	"include": ["src", "test"],
+	"exclude": ["node_modules"],
+	"compilerOptions": {
+		"allowJs": true
+	}
+}

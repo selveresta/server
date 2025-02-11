@@ -1,6 +1,7 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
+
 import { AppModule } from '../src/app.module';
 
 describe('StreamController (e2e)', () => {
@@ -82,7 +83,7 @@ describe('StreamController (e2e)', () => {
 					title: 'My E2E Stream',
 					description: 'Testing the creation of a stream',
 					// streamKey не передаємо, якщо генерується на бекенді
-					userId: userId, // обов’язковий зв’язок
+					userId, // обов’язковий зв’язок
 				})
 				.expect(201);
 
@@ -97,7 +98,7 @@ describe('StreamController (e2e)', () => {
 				.set('Authorization', `Bearer ${token}`)
 				.send({
 					// no title
-					userId: userId,
+					userId,
 				})
 				.expect(400);
 		});

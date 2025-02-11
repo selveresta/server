@@ -1,17 +1,19 @@
+import { randomBytes } from 'crypto';
+
 import {
+	BadRequestException,
+	ConflictException,
 	Injectable,
 	NotFoundException,
-	ConflictException,
-	BadRequestException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { UniqueConstraintError } from 'sequelize';
+import { Op } from 'sequelize';
+
 import { CreateStreamDto } from './dto/create-stream.dto';
 import { UpdateStreamDto } from './dto/update-stream.dto';
 import { Stream } from './stream.model';
-import { UniqueConstraintError } from 'sequelize';
-import { Op } from 'sequelize';
 // Імпортуємо crypto для генерації ключа
-import { randomBytes } from 'crypto';
 
 @Injectable()
 export class StreamService {
@@ -55,7 +57,7 @@ export class StreamService {
 	async update(id: string, updateStreamDto: UpdateStreamDto): Promise<Stream> {
 		const stream = await this.findOne(id);
 
-		if (stream.streamKey && stream.streamKey !== stream.streamKey) {
+		if (stream.streamKey) {
 			const duplicate = await this.streamModel.findOne({
 				where: { streamKey: stream.streamKey, id: { [Op.ne]: id } },
 			});

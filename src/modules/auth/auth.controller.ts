@@ -1,5 +1,7 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
+
 import { AuthService } from './auth.service';
+
 import { CreateUserDto } from '@M/entity/user/dto/create-user.dto';
 import { UserService } from '@M/entity/user/user.service';
 
@@ -15,7 +17,10 @@ export class AuthController {
 		@Body() { email, password }: { email: string; password: string },
 	) {
 		const user = await this.authService.validateUser(email, password);
-		return this.authService.login({ id: user.id, email: user.email });
+		if (!user) {
+			throw new UnauthorizedException('Invalid credentials');
+		}
+		return this.authService.login(user);
 	}
 
 	@Post('register')
@@ -28,7 +33,7 @@ export class AuthController {
 		});
 		return {
 			message: 'Registration success',
-			access_token: accessToken,
+			accessToken,
 		};
 	}
 }

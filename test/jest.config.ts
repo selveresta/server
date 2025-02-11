@@ -1,5 +1,7 @@
 import * as path from 'path';
+
 import { JestConfigWithTsJest, pathsToModuleNameMapper } from 'ts-jest';
+
 import { compilerOptions } from '../tsconfig.json';
 
 const config: JestConfigWithTsJest = {

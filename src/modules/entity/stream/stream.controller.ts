@@ -1,15 +1,16 @@
 import {
-	Controller,
-	Get,
-	Post,
-	Param,
 	Body,
+	Controller,
 	Delete,
+	Get,
+	Param,
 	Patch,
+	Post,
 } from '@nestjs/common';
-import { StreamService } from './stream.service';
+
 import { CreateStreamDto } from './dto/create-stream.dto';
 import { UpdateStreamDto } from './dto/update-stream.dto';
+import { StreamService } from './stream.service';
 
 @Controller('streams')
 export class StreamController {

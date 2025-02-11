@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
-import { StreamService } from './stream.service';
-import { StreamController } from './stream.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
+
+import { StreamController } from './stream.controller';
+import { StreamService } from './stream.service';
+
 import { Stream } from '@M/entity/stream/stream.model';
 
 @Module({

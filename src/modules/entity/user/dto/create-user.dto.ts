@@ -1,4 +1,3 @@
-import { ICreateUserDto } from '@T/user/dto/user.dto';
 import {
 	IsEmail,
 	IsNotEmpty,
@@ -6,6 +5,8 @@ import {
 	IsString,
 	MinLength,
 } from 'class-validator';
+
+import { ICreateUserDto } from '@T/user/dto/user.dto';
 
 export class CreateUserDto implements ICreateUserDto {
 	@IsString()

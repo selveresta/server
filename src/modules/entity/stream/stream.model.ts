@@ -1,14 +1,15 @@
 import {
-	Table,
-	Column,
-	Model,
-	DataType,
-	ForeignKey,
-	BelongsTo,
-	Default,
-	Unique,
 	AllowNull,
+	BelongsTo,
+	Column,
+	DataType,
+	Default,
+	ForeignKey,
+	Model,
+	Table,
+	Unique,
 } from 'sequelize-typescript';
+
 import { User } from '../user/user.model';
 
 @Table({ tableName: 'streams', timestamps: true })

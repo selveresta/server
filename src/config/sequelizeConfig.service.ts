@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
-	SequelizeOptionsFactory,
 	SequelizeModuleOptions,
+	SequelizeOptionsFactory,
 } from '@nestjs/sequelize';
+
 import { IConfig } from '@T/config/config';
 
 @Injectable()

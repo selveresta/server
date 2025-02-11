@@ -1,14 +1,15 @@
 // user.model.ts
+import * as bcrypt from 'bcrypt';
 import {
-	Table,
-	Column,
-	Model,
-	DataType,
-	Unique,
 	BeforeCreate,
 	BeforeUpdate,
+	Column,
+	DataType,
+	Model,
+	Table,
+	Unique,
 } from 'sequelize-typescript';
-import * as bcrypt from 'bcrypt';
+
 import { IUser } from '@T/user/user';
 
 @Table({ tableName: 'users', timestamps: true })

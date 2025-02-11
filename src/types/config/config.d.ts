@@ -1,7 +1,7 @@
 export interface IServerConfig {
 	port: number;
 	logLevel: string;
-	jwt_secret: string;
+	jwtSecret: string;
 }
 
 export interface ISqlConfig {

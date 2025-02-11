@@ -1,8 +1,8 @@
-import { User } from '@M/entity/user/user.model';
-import { UserService } from '@M/entity/user/user.service';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+
+import { UserService } from '@M/entity/user/user.service';
 
 @Injectable()
 export class AuthService {
@@ -30,7 +30,7 @@ export class AuthService {
 		}
 
 		// Приховуємо пароль перед поверненням
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		const { password, ...rest } = user.get({ plain: true });
 		return rest;
 	}
@@ -41,7 +41,7 @@ export class AuthService {
 	login(payload: { id: string; email: string }) {
 		// Формуємо payload
 		return {
-			access_token: this.jwtService.sign({
+			accessToken: this.jwtService.sign({
 				sub: payload.id,
 				email: payload.email,
 			}),

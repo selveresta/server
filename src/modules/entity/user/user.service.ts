@@ -1,14 +1,16 @@
 import {
-	Injectable,
-	NotFoundException,
 	BadRequestException,
 	ConflictException,
+	Injectable,
+	NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Op, UniqueConstraintError } from 'sequelize';
+
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.model';
-import { Op, UniqueConstraintError } from 'sequelize';
+
 import { IUser } from '@T/user/user';
 
 @Injectable()
@@ -96,10 +98,15 @@ export class UserService {
 		value: string,
 	): Promise<User> {
 		const user = await this.userModel.findOne<User>({
-			where: { [`${key}`]: value },
+			where: { [key]: value },
 		});
 		if (!user) {
-			throw new NotFoundException(`User with email "${value}" not found`);
+			if (!user) {
+				throw new NotFoundException({
+					code: 'USER_NOT_FOUND',
+					message: `User with ${key} "${value}" not found`,
+				});
+			}
 		}
 		return user;
 	}
