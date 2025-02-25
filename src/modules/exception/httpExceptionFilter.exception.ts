@@ -4,9 +4,8 @@ import {
 	ExceptionFilter,
 	HttpException,
 } from '@nestjs/common';
+import { ErrorsCode } from 'arli_schema';
 import { Response } from 'express';
-
-import { ErrorsCode } from '@T/exception/errorsCode';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {

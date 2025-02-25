@@ -5,14 +5,12 @@ import {
 	NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { ICreateUserDto, IUpdateUserDto, IUser } from 'arli_schema';
 import { Op, UniqueConstraintError } from 'sequelize';
 
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.model';
 
 import { UserNotFoundException } from '@M/exception/custom/user-not-found.exception';
-import { IUser } from '@T/user/user';
 
 @Injectable()
 export class UserService {
@@ -21,7 +19,7 @@ export class UserService {
 		private readonly userModel: typeof User,
 	) {}
 
-	async create(createUserDto: CreateUserDto): Promise<User> {
+	async create(createUserDto: ICreateUserDto): Promise<User> {
 		const existingUser = await this.userModel.findOne({
 			where: {
 				[Op.or]: [
@@ -58,7 +56,7 @@ export class UserService {
 		return user;
 	}
 
-	async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+	async update(id: string, updateUserDto: IUpdateUserDto): Promise<User> {
 		const user = await this.findBy('id', id);
 
 		if (updateUserDto.email && updateUserDto.email !== user.email) {

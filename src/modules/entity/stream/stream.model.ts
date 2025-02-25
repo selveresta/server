@@ -1,3 +1,4 @@
+import { IStream } from 'arli_schema';
 import {
 	AllowNull,
 	BelongsTo,
@@ -13,7 +14,7 @@ import {
 import { User } from '../user/user.model';
 
 @Table({ tableName: 'streams', timestamps: true })
-export class Stream extends Model<Stream> {
+export class Stream extends Model<Stream> implements IStream {
 	@Column({
 		type: DataType.UUID,
 		defaultValue: DataType.UUIDV4,

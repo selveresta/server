@@ -1,6 +1,5 @@
 import { NotFoundException } from '@nestjs/common';
-
-import { ErrorsCode } from '@T/exception/errorsCode';
+import { ErrorsCode } from 'arli_schema';
 
 export class UserNotFoundException extends NotFoundException {
 	constructor(identifier: string) {

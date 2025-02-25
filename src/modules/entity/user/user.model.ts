@@ -1,4 +1,5 @@
 // user.model.ts
+import { IUser } from 'arli_schema';
 import * as bcrypt from 'bcrypt';
 import {
 	BeforeCreate,
@@ -9,9 +10,6 @@ import {
 	Table,
 	Unique,
 } from 'sequelize-typescript';
-
-import { IUser } from '@T/user/user';
-
 @Table({ tableName: 'users', timestamps: true })
 export class User extends Model<User> implements IUser {
 	@Column({

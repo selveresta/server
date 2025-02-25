@@ -4,8 +4,7 @@ import {
 	SequelizeModuleOptions,
 	SequelizeOptionsFactory,
 } from '@nestjs/sequelize';
-
-import { IConfig } from '@T/config/config';
+import { IConfig } from 'arli_schema';
 
 @Injectable()
 export class SequelizeConfigService implements SequelizeOptionsFactory {

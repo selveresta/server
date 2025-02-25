@@ -1,4 +1,4 @@
-import { IServerConfig } from '@T/config/config';
+import { IServerConfig } from 'arli_schema';
 
 export const serverConfig = (): IServerConfig => ({
 	port: parseInt(process.env.PORT || '3000', 10),

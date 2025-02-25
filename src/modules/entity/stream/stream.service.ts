@@ -7,11 +7,10 @@ import {
 	NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { ICreateStreamDto, IUpdateStreamDto } from 'arli_schema';
 import { UniqueConstraintError } from 'sequelize';
 import { Op } from 'sequelize';
 
-import { CreateStreamDto } from './dto/create-stream.dto';
-import { UpdateStreamDto } from './dto/update-stream.dto';
 import { Stream } from './stream.model';
 // Імпортуємо crypto для генерації ключа
 
@@ -22,7 +21,7 @@ export class StreamService {
 		private readonly streamModel: typeof Stream,
 	) {}
 
-	async create(createStreamDto: CreateStreamDto): Promise<Stream> {
+	async create(createStreamDto: ICreateStreamDto): Promise<Stream> {
 		// Генеруємо унікальний streamKey:
 		const generatedKey = randomBytes(16).toString('hex');
 		// Або, якщо хочете UUID, можна використати:
@@ -54,7 +53,7 @@ export class StreamService {
 		return stream;
 	}
 
-	async update(id: string, updateStreamDto: UpdateStreamDto): Promise<Stream> {
+	async update(id: string, updateStreamDto: IUpdateStreamDto): Promise<Stream> {
 		const stream = await this.findOne(id);
 
 		if (stream.streamKey) {

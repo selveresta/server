@@ -40,18 +40,32 @@ describe('StreamController (e2e)', () => {
 		// 1. Створюємо нового користувача і отримуємо токен
 		// Припустимо, у нас є ендпоінт POST /auth/register,
 		// який повертає { message, access_token }
-		const regRes = await request(server)
-			.post('/auth/register')
-			.send({
-				username: 'stream_tester',
+		const regRes = await request(server).post('/auth/register').send({
+			username: 'stream_tester',
+			email: 'stream_tester@example.com',
+			password: 'secret123',
+		});
+
+		if (regRes.status === 201) {
+			token = regRes.body.accessToken.accessToken
+				? regRes.body.accessToken.accessToken
+				: regRes.body.accessToken;
+
+			expect(regRes.status).toBe(201);
+		} else {
+			expect(regRes.status).toBe(409);
+
+			const logRes = await request(server).post('/auth/login').send({
 				email: 'stream_tester@example.com',
 				password: 'secret123',
-			})
-			.expect(201);
+			});
+			token = logRes.body.accessToken.accessToken
+				? logRes.body.accessToken.accessToken
+				: logRes.body.accessToken;
 
-		token = regRes.body.access_token.access_token
-			? regRes.body.access_token.access_token
-			: regRes.body.access_token;
+			expect(logRes.status).toBe(201);
+		}
+
 		// Залежно від того, як саме ви повертаєте токен
 
 		// 2. Нам треба дізнатися userId для створення стріму

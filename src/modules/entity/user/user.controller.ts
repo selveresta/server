@@ -7,9 +7,8 @@ import {
 	Patch,
 	Post,
 } from '@nestjs/common';
+import { ICreateUserDto, IUpdateUserDto } from 'arli_schema';
 
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
 
 @Controller('users')
@@ -17,7 +16,7 @@ export class UserController {
 	constructor(private readonly userService: UserService) {}
 
 	@Post()
-	create(@Body() createUserDto: CreateUserDto) {
+	create(@Body() createUserDto: ICreateUserDto) {
 		return this.userService.create(createUserDto);
 	}
 
@@ -32,7 +31,7 @@ export class UserController {
 	}
 
 	@Patch(':id')
-	update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+	update(@Param('id') id: string, @Body() updateUserDto: IUpdateUserDto) {
 		return this.userService.update(id, updateUserDto);
 	}
 

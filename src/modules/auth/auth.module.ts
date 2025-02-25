@@ -2,13 +2,13 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { IConfig } from 'arli_schema';
 
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt/jwt.strategy';
 
 import { UserModule } from '@M/entity/user/user.module';
-import { IConfig } from '@T/config/config';
 
 @Module({
 	imports: [

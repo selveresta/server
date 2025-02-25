@@ -1,8 +1,8 @@
 import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
+import { LoginUserDto, RegisterUserDto } from 'arli_schema';
 
 import { AuthService } from './auth.service';
 
-import { CreateUserDto } from '@M/entity/user/dto/create-user.dto';
 import { UserService } from '@M/entity/user/user.service';
 
 @Controller('auth')
@@ -13,10 +13,11 @@ export class AuthController {
 	) {}
 
 	@Post('login')
-	async login(
-		@Body() { email, password }: { email: string; password: string },
-	) {
-		const user = await this.authService.validateUser(email, password);
+	async login(@Body() loginUserDTO: LoginUserDto) {
+		const user = await this.authService.validateUser(
+			loginUserDTO.email,
+			loginUserDTO.password,
+		);
 		if (!user) {
 			throw new UnauthorizedException('Invalid credentials');
 		}
@@ -24,8 +25,8 @@ export class AuthController {
 	}
 
 	@Post('register')
-	async register(@Body() createUserDto: CreateUserDto) {
-		const newUser = await this.userService.create(createUserDto);
+	async register(@Body() registerUserDto: RegisterUserDto) {
+		const newUser = await this.userService.create(registerUserDto);
 
 		const accessToken = this.authService.login({
 			id: newUser.id,

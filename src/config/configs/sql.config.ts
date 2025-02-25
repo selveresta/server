@@ -1,6 +1,5 @@
+import { ISqlConfig } from 'arli_schema';
 import { Dialect } from 'sequelize';
-
-import { ISqlConfig } from '@T/config/config';
 
 export const sqlConfig = (): ISqlConfig => ({
 	dialect: <Dialect>process.env.SQL_DIALECT || 'mysql',

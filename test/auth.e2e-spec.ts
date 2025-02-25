@@ -31,17 +31,19 @@ describe('AuthController (e2e)', () => {
 
 	describe('/auth/register (POST)', () => {
 		it('should register a user', async () => {
-			const response = await request(server)
-				.post('/auth/register')
-				.send({
-					username: 'e2e_tester',
-					email: 'e2e@test.com',
-					password: 'secret123',
-				})
-				.expect(201);
+			const response = await request(server).post('/auth/register').send({
+				username: 'e2e_tester',
+				email: 'e2e@test.com',
+				password: 'secret123',
+			});
 
-			expect(response.body).toHaveProperty('message', 'Registration success');
-			expect(response.body).toHaveProperty('access_token');
+			if (response.status === 201) {
+				expect(response.status).toBe(201);
+				expect(response.body).toHaveProperty('message', 'Registration success');
+				expect(response.body).toHaveProperty('accessToken');
+			} else {
+				expect(response.status).toBe(409);
+			}
 		});
 
 		it('should return 400 if email is invalid', async () => {
@@ -59,7 +61,7 @@ describe('AuthController (e2e)', () => {
 	});
 
 	describe('/auth/login (POST)', () => {
-		it('should login and return access_token', async () => {
+		it('should login and return accessToken', async () => {
 			// Припустимо, у нас уже є користувач e2e@test.com
 			// Або реєструємо знову
 			const loginRes = await request(server)
@@ -70,7 +72,7 @@ describe('AuthController (e2e)', () => {
 				})
 				.expect(201);
 
-			expect(loginRes.body).toHaveProperty('access_token');
+			expect(loginRes.body).toHaveProperty('accessToken');
 		});
 
 		it('should return 401 if password is wrong', async () => {

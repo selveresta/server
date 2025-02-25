@@ -7,9 +7,8 @@ import {
 	Patch,
 	Post,
 } from '@nestjs/common';
+import { ICreateStreamDto, IUpdateStreamDto } from 'arli_schema';
 
-import { CreateStreamDto } from './dto/create-stream.dto';
-import { UpdateStreamDto } from './dto/update-stream.dto';
 import { StreamService } from './stream.service';
 
 @Controller('streams')
@@ -17,7 +16,7 @@ export class StreamController {
 	constructor(private readonly streamService: StreamService) {}
 
 	@Post()
-	create(@Body() createStreamDto: CreateStreamDto) {
+	create(@Body() createStreamDto: ICreateStreamDto) {
 		return this.streamService.create(createStreamDto);
 	}
 
@@ -32,7 +31,7 @@ export class StreamController {
 	}
 
 	@Patch(':id')
-	update(@Param('id') id: string, @Body() updateStreamDto: UpdateStreamDto) {
+	update(@Param('id') id: string, @Body() updateStreamDto: IUpdateStreamDto) {
 		return this.streamService.update(id, updateStreamDto);
 	}
 

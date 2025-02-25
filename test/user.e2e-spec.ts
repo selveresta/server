@@ -32,7 +32,7 @@ describe('UserController (e2e)', () => {
 			email: 'usercrud@test.com',
 			password: 'secret123',
 		});
-		token = registerRes.body.access_token;
+		token = registerRes.body.accessToken;
 	});
 
 	afterAll(async () => {
